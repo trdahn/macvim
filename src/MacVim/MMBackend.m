@@ -2930,6 +2930,11 @@ extern GuiFont gui_mch_retain_font(GuiFont font);
 
                 char_u *filenameEscaped = NULL;
 
+                if (!bufChanged && mch_isdir(filename)) {
+                    // Change to selection directory.
+		    mch_chdir((char*)filename);
+                }
+
                 if (ea.cmdidx == CMD_drop) {
                     // :drop works differently internally and we need to escape
                     // filenames first. Otherwise names like $filename will get
